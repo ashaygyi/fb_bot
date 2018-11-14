@@ -1,5 +1,5 @@
 fbchat==1.4.1
 apiai==1.2.3
-gunicorn
+gunicorn==19.9.0
 beautifulsoup4==4.6.3
 certifi==2018.10.15
