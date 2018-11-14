@@ -80,7 +80,4 @@ client = EchoBot(os.environ.get('email'), os.environ.get('password'),
                                  'sb': os.environ.get('sb'),
                                  'spin': os.environ.get('spin'),
                                  'xs': os.environ.get('xs')})
-
-session_cookies = client.getSession()
-client.setSession(session_cookies)
 client.listen()
