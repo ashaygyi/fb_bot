@@ -71,13 +71,16 @@ class EchoBot(Client):
         self.markAsRead(thread_id)
 
 
-client = EchoBot(os.environ.get('email'), os.environ.get('password'),
-                 session_cookies={'c_user': os.environ.get('c_user'),
-                                 'datr': os.environ.get('datr'),
-                                 'fr': os.environ.get('fr'),
-                                 'noscript': os.environ.get('noscript'),
-                                 'pl': os.environ.get('pl'),
-                                 'sb': os.environ.get('sb'),
-                                 'spin': os.environ.get('spin'),
-                                 'xs': os.environ.get('xs')})
+# client = EchoBot(os.environ.get('email'), os.environ.get('password'),
+#                  session_cookies={'c_user': os.environ.get('c_user'),
+#                                  'datr': os.environ.get('datr'),
+#                                  'fr': os.environ.get('fr'),
+#                                  'noscript': os.environ.get('noscript'),
+#                                  'pl': os.environ.get('pl'),
+#                                  'sb': os.environ.get('sb'),
+#                                  'spin': os.environ.get('spin'),
+#                                  'xs': os.environ.get('xs')})
+client = EchoBot(os.environ.get('email'), os.environ.get('password'))
+session = client.getSession()
+client.setSession(session)
 client.listen()
