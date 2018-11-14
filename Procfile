@@ -1,1 +1,1 @@
-web: gunicorn src.app:app
+gunicorn --workers=1 app:app
