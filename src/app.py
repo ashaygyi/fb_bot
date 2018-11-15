@@ -1,9 +1,11 @@
 import os
-
+import requests
 from fbchat.models import *
 from fbchat import log, Client
 import apiai, json
 import random
+import threading
+
 
 nudes = ['https://drive.google.com/uc?id=1w_EpBtt1MgDFv7rJ3QPDqGfESX2UOKBh',
          'https://drive.google.com/uc?id=1stxfNUdOsmojZ7spSGdGahJ0wU_L6bka',
@@ -70,6 +72,15 @@ class EchoBot(Client):
                                            "\nOr type luffy help"), thread_id=thread_id, thread_type=thread_type)
         self.markAsRead(thread_id)
 
+def setInterval(func,time):
+    e = threading.Event()
+    while not e.wait(time):
+        func()
+
+def foo():
+    r = requests.get('https://luffy-chat.herokuapp.com/')
+    print(r.status_code)
+
 
 client = EchoBot(os.environ.get('email'), os.environ.get('password'),
                  session_cookies={'c_user': os.environ.get('c_user'),
@@ -83,4 +94,7 @@ client = EchoBot(os.environ.get('email'), os.environ.get('password'),
 # client = EchoBot(os.environ.get('email'), os.environ.get('password'))
 # session = client.getSession()
 # client.setSession(session)
+setInterval(foo, 1200)
 client.listen()
+
+
