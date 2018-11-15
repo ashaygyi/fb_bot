@@ -5,7 +5,6 @@ from fbchat import log, Client
 import apiai, json
 import random
 import threading
-from flask import Flask, render_template
 
 nudes = ['https://drive.google.com/uc?id=1w_EpBtt1MgDFv7rJ3QPDqGfESX2UOKBh',
          'https://drive.google.com/uc?id=1stxfNUdOsmojZ7spSGdGahJ0wU_L6bka',
@@ -72,9 +71,6 @@ class EchoBot(Client):
                                            "\nOr type luffy help"), thread_id=thread_id, thread_type=thread_type)
         self.markAsRead(thread_id)
 
-app = Flask(__name__)
-app.secret_key = os.environ.get('secret_key')
-
 
 client = EchoBot(os.environ.get('email'), os.environ.get('password'),
                  session_cookies={'c_user': os.environ.get('c_user'),
@@ -88,16 +84,6 @@ client = EchoBot(os.environ.get('email'), os.environ.get('password'),
 # client = EchoBot(os.environ.get('email'), os.environ.get('password'))
 # session = client.getSession()
 # client.setSession(session)
-@app.before_first_request
-def init_client():
-    client.listen()
+client.listen()
 
-
-@app.route('/')
-def home():
-    return render_template('welcome.html')
-
-
-if __name__ == '__main__':
-        app.run(debug=False)
 
