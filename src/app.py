@@ -78,6 +78,7 @@ def setInterval(func,time):
         func()
 
 def foo():
+    print('start to ping')
     r = requests.get('https://luffy-chat.herokuapp.com/')
     print(r.status_code)
 
