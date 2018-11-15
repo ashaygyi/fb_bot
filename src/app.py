@@ -51,7 +51,7 @@ class EchoBot(Client):
                 client.reactToMessage(message_object.uid, MessageReaction.LOVE)
                 self.sendRemoteImage(image_url=random.choice(twice), thread_id=thread_id, thread_type=thread_type)
             if a is False:
-                if mesg[0:10] == 'luffy help' and len(mesg) == 10:
+                if (mesg[0:10] == 'luffy help' or mesg[0:10] == 'Luffy help') and len(mesg) == 10:
                     self.send(Message(text='Hello'
                                            '\nYou can ask me to do things with luffy commands'
                                            '\neg.luffy send nudes'
