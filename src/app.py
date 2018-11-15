@@ -95,7 +95,6 @@ client = EchoBot(os.environ.get('email'), os.environ.get('password'),
 # client = EchoBot(os.environ.get('email'), os.environ.get('password'))
 # session = client.getSession()
 # client.setSession(session)
-setInterval(foo, 1200)
 client.listen()
 
 
