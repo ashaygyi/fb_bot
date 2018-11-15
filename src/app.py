@@ -57,7 +57,7 @@ class EchoBot(Client):
                                            '\neg.luffy send nudes'
                                            '\nYou can also chat with me using luffy in font of the sentence'
                                            '\neg.luffy hello, luffy how are you'), thread_id=thread_id, thread_type=thread_type)
-                elif mesg[0:5] == 'luffy' and len(mesg) > 6:
+                elif (mesg[0:5] == 'luffy' or mesg[0:5] == 'Luffy') and len(mesg) > 6:
                     if self.findWholeWord('send nudes', mesg):
                         self.sendRemoteImage(image_url=random.choice(nudes), thread_id=thread_id, thread_type=thread_type)
                     else:
