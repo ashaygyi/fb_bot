@@ -73,7 +73,6 @@ class EchoBot(Client):
         self.markAsRead(thread_id)
 
 app = Flask(__name__)
-app.config.from_object('src.configure')
 app.secret_key = os.environ.get('secret_key')
 
 
