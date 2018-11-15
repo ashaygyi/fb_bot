@@ -72,17 +72,6 @@ class EchoBot(Client):
                                            "\nOr type luffy help"), thread_id=thread_id, thread_type=thread_type)
         self.markAsRead(thread_id)
 
-def setInterval(func,time):
-    e = threading.Event()
-    while not e.wait(time):
-        func()
-
-def foo():
-    print('start to ping')
-    r = requests.get('https://luffy-chat.herokuapp.com/')
-    print(r.status_code)
-
-
 client = EchoBot(os.environ.get('email'), os.environ.get('password'),
                  session_cookies={'c_user': os.environ.get('c_user'),
                                  'datr': os.environ.get('datr'),
