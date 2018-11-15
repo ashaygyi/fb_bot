@@ -88,6 +88,10 @@ client = EchoBot(os.environ.get('email'), os.environ.get('password'),
 # client = EchoBot(os.environ.get('email'), os.environ.get('password'))
 # session = client.getSession()
 # client.setSession(session)
+@app.before_first_request
+def init_client():
+    client.listen()
+
 
 @app.route('/')
 def home():
@@ -96,5 +100,4 @@ def home():
 
 if __name__ == '__main__':
         app.run(debug=False)
-        client.listen()
 
