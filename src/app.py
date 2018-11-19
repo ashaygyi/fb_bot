@@ -1,23 +1,10 @@
-import os
-import requests
 from fbchat.models import *
+from google_images_download import google_images_download
 from fbchat import log, Client
 import apiai, json
+import json
 import random
-import threading
-
-nudes = ['https://drive.google.com/uc?id=1w_EpBtt1MgDFv7rJ3QPDqGfESX2UOKBh',
-         'https://drive.google.com/uc?id=1stxfNUdOsmojZ7spSGdGahJ0wU_L6bka',
-         'https://drive.google.com/uc?id=1aBFXHSMlxLQdIwSRvaFhUtK812RfhilM',
-         'https://drive.google.com/uc?id=1bmqkfHqD3N4NPmv8zY296tXm2lma2lCF']
-blackpink = ['https://drive.google.com/uc?id=1j6-5QgbctEJtXmZ7UWlayDBYDiqFj0Iz',
-             'https://drive.google.com/uc?id=1q3-mQvEvtCnlXLQ0XZTRda6qiq81jB2B',
-             'https://drive.google.com/uc?id=1p8garPN9FcD6VU0vbH50L435N336ow2r',
-             'https://drive.google.com/uc?id=1z0KPrv8IJagQAifAtYcq08eaGAAxvR7U']
-twice = ['https://drive.google.com/uc?id=1QTRSCjxSY50kwpoWy67I78sQFb1JJymx',
-         'https://drive.google.com/uc?id=1C8BSNoW9E6wlhIqDsFVBDYY3db10b3Tx',
-         'https://drive.google.com/uc?id=1rEsUHAR9OkMk5tXJU7dB1q8kzoX6HYJZ',
-         'https://drive.google.com/uc?id=1uj8WFHWNCwUk7Tm9_CJKh69ysTm4JyDt']
+import shutil
 
 
 class EchoBot(Client):
@@ -32,58 +19,93 @@ class EchoBot(Client):
     def findWholeWord(self, word, string):
         return word in string
 
-    def onMessage(self, mid=None, author_id=None, message=None, message_object=None, thread_id=None, thread_type=ThreadType.USER, ts=None, metadata=None, msg=None):
+    def onMessage(self, mid=None, author_id=None, message=None, message_object=None, thread_id=None,
+                  thread_type=ThreadType.USER, ts=None, metadata=None, msg=None):
 
-        global a
-        a = False
         self.markAsDelivered(thread_id, message_object.uid)
         log.info("{} from {} in {}".format(message_object, thread_id, thread_type.name))
         mesg = message_object.text
 
         if author_id != self.uid:
-            if self.findWholeWord('blackpink', mesg) or self.findWholeWord('Blackpink', mesg) or self.findWholeWord('BLACKPINK', mesg) or self.findWholeWord('BlackPink', mesg):
-                a = True
+
+            if self.findWholeWord('blackpink', mesg) or self.findWholeWord('Blackpink', mesg) or self.findWholeWord(
+                    'BLACKPINK', mesg) or self.findWholeWord('BlackPink', mesg):
                 client.reactToMessage(message_object.uid, MessageReaction.LOVE)
-                self.sendRemoteImage(image_url=random.choice(blackpink), thread_id=thread_id, thread_type=thread_type)
-            if self.findWholeWord('twice', mesg) or self.findWholeWord('Twice', mesg) or self.findWholeWord('TWICE', mesg):
-                a = True
+
+            if self.findWholeWord('twice', mesg) or self.findWholeWord('Twice', mesg) or self.findWholeWord('TWICE',mesg) or self.findWholeWord('TWICE',
+                                                                                                            mesg):
                 client.reactToMessage(message_object.uid, MessageReaction.LOVE)
-                self.sendRemoteImage(image_url=random.choice(twice), thread_id=thread_id, thread_type=thread_type)
-            if a is False:
-                if (mesg[0:10] == 'luffy help' or mesg[0:10] == 'Luffy help') and len(mesg) == 10:
-                    self.send(Message(text='Hello'
-                                           '\nYou can ask me to do things with luffy commands'
-                                           '\neg.luffy send nudes'
-                                           '\nYou can also chat with me using luffy in font of the sentence'
-                                           '\neg.luffy hello, luffy how are you'), thread_id=thread_id, thread_type=thread_type)
-                elif (mesg[0:5] == 'luffy' or mesg[0:5] == 'Luffy') and len(mesg) > 6:
-                    if self.findWholeWord('send nudes', mesg):
-                        self.sendRemoteImage(image_url=random.choice(nudes), thread_id=thread_id, thread_type=thread_type)
-                    else:
-                        self.apiaiConnect()
-                        self.request.query = mesg[5:]
-                        response = self.request.getresponse()
-                        obj = json.load(response)
-                        reply = obj['result']['fulfillment']['speech']
-                        self.send(Message(text=reply), thread_id=thread_id, thread_type=thread_type)
+
+            if self.findWholeWord('momoland', mesg) or self.findWholeWord('Momoland', mesg) or self.findWholeWord('MOMOLAND',
+                                                                                                            mesg):
+                client.reactToMessage(message_object.uid, MessageReaction.LOVE)
+
+            if self.findWholeWord('bigbang', mesg) or self.findWholeWord('Bigbang', mesg) or self.findWholeWord('BigBang', mesg) or self.findWholeWord('BIGBANG',
+                                                                                                            mesg):
+                client.reactToMessage(message_object.uid, MessageReaction.LOVE)
+
+            if (mesg[0:10] == 'luffy help' or mesg[0:10] == 'Luffy help') and len(mesg) == 10:
+                self.send(Message(text='Hello'
+                                       '\nYou can ask me to do things with luffy commands'
+                                       '\neg.luffy send nudes'
+                                       '\nYou can also chat with me using luffy in font of the sentence'
+                                       '\neg.luffy hello, luffy how are you'), thread_id=thread_id,
+                          thread_type=thread_type)
+                elif mesg[0:5] == 'luffy' and len(mesg) > 6:
+                if self.findWholeWord('send me ', mesg) or self.findWholeWord('SEND ME ', mesg) or self.findWholeWord(
+                        'Send me ', mesg) or self.findWholeWord('Send Me ', mesg):
+                    imglist = []
+                    response = google_images_download.googleimagesdownload()
+                    arguments = {"keywords": mesg[14:], "limit": 10, "no_download": True,
+                                 "no_directory": True, "extract_metadata": True}
+                    response.download(arguments)
+                    json_data = open('./logs/' + mesg[14:] + '.json').read()
+                    data = json.loads(json_data)
+                    shutil.rmtree('./logs')
+                    for a in range(0, 5):
+                        imglist.append(data[a]['image_link'])
+                        a += 1
+                    random.shuffle(imglist)
+                    self.sendRemoteImage(image_url=random.choice(imglist), thread_id=thread_id,
+                                         thread_type=thread_type)
+                elif self.findWholeWord('send ', mesg) or self.findWholeWord('SEND ', mesg):
+                    imglist = []
+                    response = google_images_download.googleimagesdownload()
+                    arguments = {"keywords": mesg[11:], "limit": 10, "no_download": True,
+                                 "no_directory": True, "extract_metadata": True}
+                    response.download(arguments)
+                    json_data = open('./logs/' + mesg[11:] + '.json').read()
+                    data = json.loads(json_data)
+                    shutil.rmtree('./logs')
+                    for a in range(0, 5):
+                        imglist.append(data[a]['image_link'])
+                        a += 1
+                    random.shuffle(imglist)
+                    self.sendRemoteImage(image_url=random.choice(imglist), thread_id=thread_id,
+                                         thread_type=thread_type)
                 else:
-                    self.send(Message(text="Please put the word 'luffy' in the beginning of the line"
-                                           "\nOr type luffy help"), thread_id=thread_id, thread_type=thread_type)
+                    self.apiaiConnect()
+                    self.request.query = mesg[5:]
+                    response = self.request.getresponse()
+                    obj = json.load(response)
+                    reply = obj['result']['fulfillment']['speech']
+                    self.send(Message(text=reply), thread_id=thread_id, thread_type=thread_type)
+            else:
+                self.send(Message(text="Please put the word 'luffy' in the beginning of the line"
+                                       "\nOr type luffy help"), thread_id=thread_id, thread_type=thread_type)
         self.markAsRead(thread_id)
 
 
 client = EchoBot(os.environ.get('email'), os.environ.get('password'),
                  session_cookies={'c_user': os.environ.get('c_user'),
-                                 'datr': os.environ.get('datr'),
-                                 'fr': os.environ.get('fr'),
-                                 'noscript': os.environ.get('noscript'),
-                                 'pl': os.environ.get('pl'),
-                                 'sb': os.environ.get('sb'),
-                                 'spin': os.environ.get('spin'),
-                                 'xs': os.environ.get('xs')})
+                                  'datr': os.environ.get('datr'),
+                                  'fr': os.environ.get('fr'),
+                                  'noscript': os.environ.get('noscript'),
+                                  'pl': os.environ.get('pl'),
+                                  'sb': os.environ.get('sb'),
+                                  'spin': os.environ.get('spin'),
+                                  'xs': os.environ.get('xs')})
 # client = EchoBot(os.environ.get('email'), os.environ.get('password'))
 # session = client.getSession()
 # client.setSession(session)
 client.listen()
-
-
