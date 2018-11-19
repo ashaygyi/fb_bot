@@ -5,6 +5,7 @@ import apiai, json
 import json
 import random
 import shutil
+import os
 
 
 class EchoBot(Client):
