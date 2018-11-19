@@ -55,7 +55,7 @@ class EchoBot(Client):
                                        '\nYou can also chat with me using luffy in font of the sentence'
                                        '\neg.luffy hello, luffy how are you'), thread_id=thread_id,
                           thread_type=thread_type)
-                elif mesg[0:5] == 'luffy' and len(mesg) > 6:
+            elif mesg[0:5] == 'luffy' and len(mesg) > 6:
                 if self.findWholeWord('send me ', mesg) or self.findWholeWord('SEND ME ', mesg) or self.findWholeWord(
                         'Send me ', mesg) or self.findWholeWord('Send Me ', mesg):
                     imglist = []
