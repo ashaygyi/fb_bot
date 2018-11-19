@@ -110,6 +110,6 @@ client = EchoBot(os.environ.get('email'), os.environ.get('password'),
                                   'spin': os.environ.get('spin'),
                                   'xs': os.environ.get('xs')})
 # client = EchoBot(os.environ.get('email'), os.environ.get('password'))
-# session = client.getSession()
-# client.setSession(session)
+session = client.getSession()
+print(session)
 client.listen()
