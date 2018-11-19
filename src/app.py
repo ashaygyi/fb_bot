@@ -32,16 +32,20 @@ class EchoBot(Client):
                     'BLACKPINK', mesg) or self.findWholeWord('BlackPink', mesg):
                 client.reactToMessage(message_object.uid, MessageReaction.LOVE)
 
-            if self.findWholeWord('twice', mesg) or self.findWholeWord('Twice', mesg) or self.findWholeWord('TWICE',mesg) or self.findWholeWord('TWICE',
-                                                                                                            mesg):
+            if self.findWholeWord('twice', mesg) or self.findWholeWord('Twice', mesg) or self.findWholeWord('TWICE',
+                                                                                                            mesg) or self.findWholeWord(
+                'TWICE',
+                mesg):
                 client.reactToMessage(message_object.uid, MessageReaction.LOVE)
 
-            if self.findWholeWord('momoland', mesg) or self.findWholeWord('Momoland', mesg) or self.findWholeWord('MOMOLAND',
-                                                                                                            mesg):
+            if self.findWholeWord('momoland', mesg) or self.findWholeWord('Momoland', mesg) or self.findWholeWord(
+                    'MOMOLAND',
+                    mesg):
                 client.reactToMessage(message_object.uid, MessageReaction.LOVE)
 
-            if self.findWholeWord('bigbang', mesg) or self.findWholeWord('Bigbang', mesg) or self.findWholeWord('BigBang', mesg) or self.findWholeWord('BIGBANG',
-                                                                                                            mesg):
+            if self.findWholeWord('bigbang', mesg) or self.findWholeWord('Bigbang', mesg) or self.findWholeWord(
+                    'BigBang', mesg) or self.findWholeWord('BIGBANG',
+                                                           mesg):
                 client.reactToMessage(message_object.uid, MessageReaction.LOVE)
 
             if (mesg[0:10] == 'luffy help' or mesg[0:10] == 'Luffy help') and len(mesg) == 10:
